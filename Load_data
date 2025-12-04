@@ -1,3 +1,4 @@
 import pandas as pd
-df=pd.read_csv("C:\\Users\\LENOVO\\Desktop\\Sem-5\\powerBi ca2\\stroke_data.csv")
+df=pd.read_csv("C:\\Users\\LENOVO\\Desktop\\Sem-5\\ml ca2\\Metabolic_Syndrome.csv")
 print(df)
+
