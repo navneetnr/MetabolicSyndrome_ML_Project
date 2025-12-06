@@ -6,5 +6,5 @@ print(df)
 print(df.info())
 print(df.describe())
 print(df.shape)
-
+print(df.isnull().sum())
 
