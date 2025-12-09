@@ -1,18 +1,28 @@
 import pandas as pd
 
-#load dataset
+#load dataset   -------------------------------------
 df=pd.read_csv("C:\\Users\\LENOVO\\Desktop\\Sem-5\\ml ca2\\Metabolic_Syndrome.csv")
 print(df)
 df.info()
 print(df.describe())
 print(df.shape)
 print(df.isnull().sum())
-#data cleaning
-df["Marital"].fillna(df["Marital"].mode()[0], inplace=True)
+
+
+# Apply nunique to know unique value ---------------------------------
+print("unique value")
+print(df.nunique())
+
+#data cleaning    -------------------------------------------
+df["Marital"]=df["Marital"].fillna(df["Marital"].mode()[0])
+
+df["Income"]=df["Income"].fillna(df["Income"].median())
+
+df["WaistCirc"]=df["WaistCirc"].fillna(df["WaistCirc"].median())
+
+df["BMI"]=df["BMI"].fillna(df["BMI"].median())
 print(df.isnull().sum())
-df["Income"].fillna(df["Income"].median(),inplace=True)
-print(df.isnull().sum())
-df["WaistCirc"].fillna(df["WaistCirc"].median(),inplace=True)
-print(df.isnull().sum())
-df["BMI"].fillna(df["BMI"].median(),inplace=True)
-print(df.isnull().sum())
+
+#using dummies for transform value       -------------------------
+df=pd.get_dummies(df,columns=["Sex"],drop_first=True,dtype=int)
+print(df)
