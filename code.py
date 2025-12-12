@@ -10,7 +10,7 @@ print(df.shape)
 print(df.isnull().sum())
 
 
-# Apply nunique to know unique value 
+# Apply nunique 
 print("unique value")
 print(df.nunique())
 
@@ -39,13 +39,15 @@ x=df.drop("MetabolicSyndrome",axis=1)
 y=df["MetabolicSyndrome"]
 
 print(df["MetabolicSyndrome"].value_counts())
+
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+
+
 #balance dataset
-
-ru=RandomUnderSampler()
-ru_x,ru_y=ru.fit_resample(x,y)
-print(ru_y.value_counts())
-
-x_train,x_test,y_train,y_test=train_test_split(ru_x,ru_y,test_size=0.2,random_state=42)
+sm=SMOTE(random_state=42)
+x_train,y_train=sm.fit_resample(x,y)
+print(y_train.value_counts())
 
 #Standered Scaler
 num_cols = ["Age", "Income", "WaistCirc", "BMI", "HDL", "Triglycerides"] 
@@ -59,12 +61,15 @@ x_test[num_cols] = x_test_scaled
 
 
 #using logistic regression
-lr=LogisticRegression(max_iter=5000, solver='saga',C=1.0)
+lr=LogisticRegression(max_iter=5000, solver='saga')
 lr.fit(x_train,y_train)
 acc=lr.score(x_test,y_test)*100
 print(f"Test Accuracy: {acc:.2f}%")
 
 sns.heatmap(x_train.corr(), annot=True, fmt=".2f", cmap="coolwarm")
 plt.show()
+
+
+
 
 
