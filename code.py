@@ -69,3 +69,65 @@ plt.figure(figsize=(5,4))
 sns.heatmap(confusion_matrix(y_test, y_pred_lr), annot=True, fmt="d", cmap="Blues")
 plt.title("Logistic Regression - Confusion Matrix")
 plt.show()
+
+
+# Random Forest
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(x_train, y_train)
+y_pred_rf = rf.predict(x_test)
+
+print("\nRandom Forest")
+print("Accuracy:", rf.score(x_test, y_test)*100)
+print("Recall:", recall_score(y_test, y_pred_rf))
+print("F1 Score:", f1_score(y_test, y_pred_rf))
+
+plt.figure(figsize=(5,4))
+sns.heatmap(confusion_matrix(y_test, y_pred_rf), annot=True, fmt="d", cmap="Greens")
+plt.title("Random Forest - Confusion Matrix")
+plt.show()
+
+# SVM
+svm = SVC(kernel="rbf", C=1.0)
+svm.fit(x_train, y_train)
+y_pred_svm = svm.predict(x_test)
+
+print("\nSVM")
+print("Accuracy:", svm.score(x_test, y_test)*100)
+print("Recall:", recall_score(y_test, y_pred_svm))
+print("F1 Score:", f1_score(y_test, y_pred_svm))
+
+plt.figure(figsize=(5,4))
+sns.heatmap(confusion_matrix(y_test, y_pred_svm), annot=True, fmt="d", cmap="Oranges")
+plt.title("SVM - Confusion Matrix")
+plt.show()
+
+# XGBoost
+xgb = XGBClassifier(eval_metric="logloss", random_state=42)
+xgb.fit(x_train, y_train)
+y_pred_xgb = xgb.predict(x_test)
+
+print("\nXGBoost")
+print("Accuracy:", xgb.score(x_test, y_test)*100)
+print("Recall:", recall_score(y_test, y_pred_xgb))
+print("F1 Score:", f1_score(y_test, y_pred_xgb))
+
+plt.figure(figsize=(5,4))
+sns.heatmap(confusion_matrix(y_test, y_pred_xgb), annot=True, fmt="d", cmap="Purples")
+plt.title("XGBoost Confusion Matrix")
+plt.show()
+
+#graph between unbalace and balance graph
+plt.figure(figsize=(6,4))
+sns.countplot(x=y)
+plt.title("Original DataSet")
+plt.show()
+
+plt.figure(figsize=(6,4))
+sns.countplot(x=y_train)
+plt.title(" Balanced DataSet")
+plt.show()
+
+#use histogram to find frequency of data
+x_train[num_cols].hist(figsize=(12,8), bins=20)
+plt.suptitle("Numerical Feature Distributions")
+plt.show()
